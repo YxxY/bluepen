@@ -1,0 +1,34 @@
+{
+  "name": "onepiece",
+  "version": "1.0.0",
+  "description": "Writing things down for the sake of my poor memory ",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "cross-env NODE_ENV=production vuepress build docs"
+  },
+  "keywords": [
+    "docs",
+    "blog",
+    "study",
+    "onepiece"
+  ],
+  "author": "xu-li",
+  "license": "MIT",
+  "dependencies": {
+    "dayjs": "^1.8.16",
+    "element-ui": "^2.12.0",
+    "vuepress": "^1.2.0",
+    "vuepress-plugin-container": "^2.1.0",
+    "vuepress-plugin-medium-zoom": "^1.1.6"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^1.1.1",
+    "cross-env": "^5.2.1",
+    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0"
+  }
+}
