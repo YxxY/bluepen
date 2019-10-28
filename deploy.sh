@@ -10,11 +10,11 @@ npm run build
 cd dist
 
 # 如果是发布到自定义域名
-echo 'onepiece.xu-li.cn' > CNAME
+echo 'bluepen.xu-li.cn' > CNAME
 
 git init
 git add -A
 git commit -m 'deploy'
-git push -f git@github.com:YxxY/onepiece.git master:gh-pages
+git push -f git@github.com:YxxY/bluepen.git master:gh-pages
 
 cd -

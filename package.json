@@ -4,8 +4,8 @@
   "description": "Writing things down for the sake of my poor memory ",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "cross-env NODE_ENV=production vuepress build docs"
+    "dev": "vuepress dev archives",
+    "build": "cross-env NODE_ENV=production vuepress build archives"
   },
   "keywords": [
     "docs",

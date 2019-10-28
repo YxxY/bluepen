@@ -2,7 +2,7 @@
 module.exports = {
     dest: 'dist',
     base: process.env.NODE_ENV === 'production' ? '/' : '/',
-    title: '🏠',
+    title: 'BluePen',
     head: [
         ['link', { rel: 'icon', href: '/logo.png' }]
     ],
