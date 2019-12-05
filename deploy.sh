@@ -3,6 +3,10 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+if [[ -z "$GITHUB_TOKEN" ]]; then
+  exit 0
+fi
+
 # 生成静态文件
 npm run build
 
@@ -15,6 +19,6 @@ echo 'bluepen.xu-li.cn' > CNAME
 git init
 git add -A
 git commit -m 'deploy'
-git push -f git@github.com:YxxY/bluepen.git master:gh-pages
+git push -f "https://yxxy:$GITHUB_TOKEN@github.com/YxxY/bluepen.git" master:gh-pages
 
 cd -
