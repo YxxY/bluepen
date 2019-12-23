@@ -8,7 +8,7 @@ module.exports = {
   sidebar: sidebar,
   displayAllHeaders: false,
   smoothScroll: true,
-  lastUpdated: 'Last Updated', // string | boolean
+  lastUpdated: '更新于', // string | boolean
   search: true,
   nav: [
     // {
@@ -31,6 +31,10 @@ module.exports = {
         {
           text: "Vuepress",
           link: "/vuepress/"
+        },
+        {
+          text: "OS",
+          link: "/mac/startup/"
         },
       ]
     },

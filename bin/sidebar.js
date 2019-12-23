@@ -12,7 +12,6 @@ const capitalize = str => {
     }
     return first.toUpperCase() + rest.join('')
 }
-// const ret = nunjucks.renderString('Hello {{ username }}', { username: 'Need >tips? Visit W3Schools!' });
 
 const rootDirName = 'docs'
 
