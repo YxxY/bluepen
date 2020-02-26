@@ -4,6 +4,7 @@
 set -e
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
+  echo "no passwd specificed"
   exit 0
 fi
 
