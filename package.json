@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "sidebar": "node bin/sidebar.js",
-    "dev": "npm run sidebar && nodemon --watch .vuepress/config.js --exec \"./node_modules/.bin/vuepress dev . \"",
-    "dev-build": "npm run sidebar && vuepress build .",
+    "dev": "npm run sidebar && nodemon --watch docs/.vuepress/config/*.js --exec \"./node_modules/.bin/vuepress dev docs \"",
+    "dev-build": "npm run sidebar && vuepress build docs",
     "build": "cross-env NODE_ENV=production npm run dev-build",
-    "deploy": "deploy.sh"
+    "deploy": "bash bin/deploy.sh"
   },
   "keywords": [
     "docs",

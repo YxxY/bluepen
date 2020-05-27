@@ -14,11 +14,16 @@ const capitalize = str => {
 }
 
 const rootDirName = 'docs'
-
 const docsRoot = path.join(__dirname, "..", rootDirName);
+
+const blogDirName = 'blog'
+const blogRoot = path.join(__dirname, "..", rootDirName, blogDirName);
+
+//generate sidebar dynamicly
 const sidebarPath = path.join(
     __dirname,
     "..",
+    rootDirName,
     ".vuepress",
     "config",
     "sidebar.js"
@@ -26,7 +31,7 @@ const sidebarPath = path.join(
 
 const template = `
 {% for item in items %}
-  const {{ item.name }} = {{ item.router | dump(2) }}
+const {{ item.name }} = {{ item.router | dump(2) }}
 {% endfor %}
 
 module.exports = {
@@ -36,12 +41,13 @@ module.exports = {
 }
 `
 
-main();
 
-function main() {
+main(blogRoot);
+
+function main(root) {
     const items = [];
 
-    const cates = getCates(docsRoot);
+    const cates = getCates(root);
     cates.forEach(cate => {
         logger.log(`processing dir "${cate}"...`)
         const router = genSubDirRouter(cate);
@@ -50,8 +56,8 @@ function main() {
         }
 
         items.push({
-            path: `/${rootDirName}/${path.basename(cate)}/`,
-            name: path.basename(cate).replace(/ /g, "_"),
+            path: `/${blogDirName}/${path.basename(cate)}/`, //generate router PATH eg: /blog/${VAR}/
+            name: path.basename(cate).replace(/ /g, "_"), 
             router
         });
     });
@@ -61,8 +67,9 @@ function main() {
 }
 
 /**
- * 读取指定目录的文件夹作为一级目录
+ * 读取指定目录下的一级文件夹名称作为目录
  * @param {String} root
+ * @return {[String]} fullpath dir
  */
 function getCates(root) {
     const result = [];
@@ -99,7 +106,7 @@ function genSubDirRouter(root, prefix) {
             if (order_str.toUpperCase() === 'README') {
                 let route = root_name + '/'
                 if (root_name === root_title)
-                    route = '/docs/' + route
+                    route = `/${blogDirName}/${route}`
                 router.unshift([route, capitalize(root_title) + '前言'])
             }
             return;
