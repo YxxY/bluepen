@@ -1,6 +1,15 @@
 
 module.exports = [
-    '@vuepress/back-to-top',
+    // '@vuepress/back-to-top',
+    [
+        'one-click-copy',
+        {
+            copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'], // String or Array
+            copyMessage: '复制成功', // default is 'Copy successfully and then paste it for use.'
+            duration: 1500, // prompt message display time.
+            showInMobile: false // whether to display on the mobile side, default: false.
+        }
+    ],
     [
         '@vuepress/last-updated',
         {
@@ -12,9 +21,9 @@ module.exports = [
     ],
     require('../plugins/overwrite-lastupdate'),
     [
-        'vuepress-plugin-medium-zoom',
+        '@vuepress/medium-zoom',
         {
-            // selector: '.zoom',
+            selector: '.theme-vdoing-content :not(a) :not(.emoji) > img',
             delay: 500,
             options: {
                 margin: 24,
@@ -38,41 +47,6 @@ module.exports = [
             after: '</div>',
         }
     ],
-
-    // this is how VuePress Default Theme use this plugin
-    [
-        'vuepress-plugin-container',
-        {
-            type: 'tip',
-            defaultTitle: {
-                '/': '提示',
-                '/zh/': '提示',
-            },
-        }
-    ],
-    [
-        'vuepress-plugin-container',
-        {
-            type: 'warning',
-            defaultTitle: {
-                '/': '注意',
-                '/zh/': '注意',
-            },
-        }
-    ],
-    [
-        'vuepress-plugin-container',
-        {
-            type: 'danger',
-            defaultTitle: {
-                '/': '警告',
-                '/zh/': '警告'
-            },
-        }
-    ],
-    // [
-    //     '@vuepress/google-analytics', { 'ga': 'UA-124601890-1' }
-    // ],
     [
         '@vuepress/pwa',
         {
@@ -82,23 +56,35 @@ module.exports = [
                 buttonText: "刷新"
             }
         }
-    ]
+    ],
+    [
+        '@vssue/vuepress-plugin-vssue', {
+            // 设置 `platform` 而不是 `api`
+            platform: 'github-v4',
+            // 其他的 Vssue 配置
+            owner: 'yxxy',
+            repo: 'bluepen',
+            clientId: 'd54e41a76ad897897e24',
+            clientSecret: process.env.clientSecret,
+        },
+    ],
     // [
     //     'vuepress-plugin-comment',
     //     {
-    //       choosen: 'gitalk', 
-    //       options: {
-    //         clientID: '3c7427f9edf5cff66186',
-    //         clientSecret: process.env.clientSecret || 'da9ea83e0cb16ffe6d86971a4a912de04bdf3411',
-    //         repo: 'bluepen',
-    //         owner: 'yxxy',
-    //         admin: ['yxxy'],
-    //         id: '<%- frontmatter.commentid || frontmatter.permalink %>',  // Ensure uniqueness and length less than 50
-    //         distractionFreeMode: false,  // Facebook-like distraction free mode
-    //         labels: ['Gitalk', 'Comment'],
-    //         title: '「评论」<%- frontmatter.title %>',
-    //         body: '<%- frontmatter.title %>：<%- window.location.origin %><%- frontmatter.to.path || window.location.pathname %>'
-    //       }
+    //         choosen: 'gitalk',
+    //         options: {
+    //             clientID: 'd54e41a76ad897897e24',
+    //             clientSecret: process.env.clientSecret,
+    //             repo: 'bluepen', // GitHub 仓库
+    //             owner: 'yxxy', // GitHub仓库所有者
+    //             admin: ['yxxy'], // 对仓库有写权限的人
+    //             // distractionFreeMode: true,
+    //             pagerDirection: 'last', // 'first'正序 | 'last'倒序
+    //             id: "<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>", //  页面的唯一标识,长度不能超过50
+    //             title: "「评论」<%- frontmatter.title %>", // GitHub issue 的标题
+    //             labels: ["Gitalk", "Comment"], // GitHub issue 的标签
+    //             body: "页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>" // GitHub issue 的内容
+    //         }
     //     }
-    //   ]
+    // ]
 ]

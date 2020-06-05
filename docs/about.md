@@ -1,7 +1,14 @@
 ---
-sidebar: false
 permalink: about
 date: 2019-10-01
+sidebar: false
+comment: false
+article: false
+editLink: false
+categories: 
+  - 
+tags: 
+  - 
 ---
 
 # About

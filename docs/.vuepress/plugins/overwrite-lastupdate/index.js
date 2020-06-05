@@ -15,5 +15,9 @@ module.exports = (options = {}, context) => ({
 })
 
 function defaultTransformer (timestamp, lang) {
-  return dayjs(timestamp).format('YYYY/MM/DD')
+  timestamp = timestamp.toISOString().replace(/T|Z/gi, " ")
+  let fmt =  dayjs(timestamp).format('YYYY-MM-DD HH:mm')
+  if(fmt.endsWith('00:00'))
+    fmt = fmt.substring(0, fmt.length - 5)
+  return fmt
 }
