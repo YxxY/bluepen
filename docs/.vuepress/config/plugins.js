@@ -67,24 +67,5 @@ module.exports = [
             clientId: 'd54e41a76ad897897e24',
             clientSecret: process.env.clientSecret,
         },
-    ],
-    // [
-    //     'vuepress-plugin-comment',
-    //     {
-    //         choosen: 'gitalk',
-    //         options: {
-    //             clientID: 'd54e41a76ad897897e24',
-    //             clientSecret: process.env.clientSecret,
-    //             repo: 'bluepen', // GitHub 仓库
-    //             owner: 'yxxy', // GitHub仓库所有者
-    //             admin: ['yxxy'], // 对仓库有写权限的人
-    //             // distractionFreeMode: true,
-    //             pagerDirection: 'last', // 'first'正序 | 'last'倒序
-    //             id: "<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>", //  页面的唯一标识,长度不能超过50
-    //             title: "「评论」<%- frontmatter.title %>", // GitHub issue 的标题
-    //             labels: ["Gitalk", "Comment"], // GitHub issue 的标签
-    //             body: "页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>" // GitHub issue 的内容
-    //         }
-    //     }
-    // ]
+    ]
 ]

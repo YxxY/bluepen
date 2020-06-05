@@ -1,4 +1,5 @@
 ---
+title: 关于
 permalink: about
 date: 2019-10-01
 sidebar: false

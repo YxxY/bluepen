@@ -14,11 +14,8 @@ module.exports = {
   search: true,
   searchMaxSuggestions: 10,
   nav: [
-    {text: 'Cate', link: '/categories/'},
-    {text: 'Tag', link: '/tags/'},
-    {text: 'Archive', link: '/archives/'},
     {
-      text: "Tech",
+      text: "学习",
       items: [
         {
           text: "Jenkins",
@@ -30,7 +27,11 @@ module.exports = {
         },
       ]
     },
-    { text: 'About', link: '/about', target: '_blank' },
+    {text: '分类', link: '/categories/'},
+    {text: '标签', link: '/tags/'},
+    {text: '归档', link: '/archives/'},
+    { text: '关于', link: '/about', target: '_blank' },
+    { text: '留言板', link: '/comment', target: '_blank' },
   ],
   logo: '/logo.png',
   updateBar: { // 最近更新栏
