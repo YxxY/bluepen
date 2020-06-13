@@ -16,18 +16,19 @@
           </h1>
           <Content class="theme-vdoing-content" />
         </div>
-        
 
         <PageEdit />
         <PageNav v-bind="{ sidebarItems }" />
       </div>
-
+      <div style="overflow hidden" v-if="enableComment">
+        <Vssue :title="commentTitle" />
+      </div>
       <UpdateArticle
         :length="3"
         :moreArticle="updateBarConfig && updateBarConfig.moreArticle"
         v-if="isShowUpdateBar"
       />
-
+      
       <slot name="bottom" />
     </main>
   
@@ -63,8 +64,14 @@ export default {
     showTitle() {
       return !this.$frontmatter.pageComponent
     },
+    enableComment(){
+      return !(this.$frontmatter && this.$frontmatter.comment === false)
+    },
     showRightMenu(){
       return this.$page.headers && (this.$frontmatter && this.$frontmatter.sidebar && this.$frontmatter.sidebar !== false) !== false
+    },
+    commentTitle(){
+      return this.$frontmatter.title || this.$frontmatter.permalink
     },
     pageComponent () {
       return this.$frontmatter.pageComponent ? this.$frontmatter.pageComponent.name : false

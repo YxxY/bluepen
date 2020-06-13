@@ -3,6 +3,8 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+source ~/.bash_profile
+
 if [[ -z "$GITHUB_TOKEN" ]]; then
   echo "no passwd specificed"
   exit 0

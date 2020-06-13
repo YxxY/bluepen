@@ -2,7 +2,8 @@ const sidebar = require("./sidebar");
 
 module.exports = {
   repo: "yxxy/bluepen",
-  repoLabel: "Github",
+  // repoLabel: "Github",
+  repoNavEnable: false,
   navbar: true,
   editLinks: true,
   editLinkText: "编辑此页",

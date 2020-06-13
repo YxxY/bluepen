@@ -3,8 +3,8 @@ title: 留言板
 permalink: comment
 date: 2020-06-05
 sidebar: false
-comment: false
 article: false
+comment: false
 editLink: false
 ---
 
@@ -16,6 +16,7 @@ editLink: false
   link: https://reinness.com
   bgColor: '#f0f2f4'
   textColor: '#A05F2C'
+```
 :::
 
-<Vssue title="comment board" />
+<Comment />

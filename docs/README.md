@@ -13,6 +13,7 @@ features:
 - title: 何以解忧
   details: 世上无难事，只要肯放弃
 footer: Copyright © 2019 - Present @xu-li
+comment: false
 postList: none
 ---
 

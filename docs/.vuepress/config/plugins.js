@@ -60,12 +60,14 @@ module.exports = [
     [
         '@vssue/vuepress-plugin-vssue', {
             // 设置 `platform` 而不是 `api`
-            platform: 'github-v4',
+            platform: 'github',
             // 其他的 Vssue 配置
-            owner: 'yxxy',
+            owner: 'YxxY',
             repo: 'bluepen',
             clientId: 'd54e41a76ad897897e24',
             clientSecret: process.env.clientSecret,
+            labels: ['comment'],
+            prefix: '[Comment]'
         },
     ]
 ]
