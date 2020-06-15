@@ -1,11 +1,11 @@
 {
   "name": "bluepen",
-  "version": "1.0.0",
-  "description": "Writing things down for the sake of my poor memory",
+  "version": "0.0.1",
+  "description": "writing things down for the sake of my poor memory",
   "main": "index.js",
   "scripts": {
     "sidebar": "node bin/sidebar.js",
-    "dev": "nodemon --watch docs/.vuepress/config/*.js --exec \"./node_modules/.bin/vuepress dev docs \"",
+    "dev": "nodemon --ext js --watch docs/.vuepress/ --exec vuepress dev docs",
     "dev-build": "vuepress build docs",
     "build": "cross-env NODE_ENV=production npm run dev-build",
     "deploy": "bash bin/deploy.sh"
@@ -15,6 +15,7 @@
     "blog",
     "study"
   ],
+  "repository": "https://github.com/YxxY/bluepen",
   "author": "xu-li",
   "license": "MIT",
   "dependencies": {
@@ -25,9 +26,9 @@
     "@vuepress/plugin-pwa": "^1.5.0",
     "dayjs": "^1.8.28",
     "element-ui": "^2.13.2",
-    "vuepress": "^1.5.0",
+    "vuepress": "^1.5.2",
     "vuepress-plugin-one-click-copy": "^1.0.2",
-    "vuepress-theme-vdoing": "^1.1.6"
+    "vuepress-theme-vdoing": "^1.2.4"
   },
   "devDependencies": {
     "babel-plugin-component": "^1.1.1",

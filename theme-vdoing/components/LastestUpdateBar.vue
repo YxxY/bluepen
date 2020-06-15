@@ -1,6 +1,6 @@
 <template>
   <div class="latestupdate-wrapper card-box">
-    <router-link :to="moreArticle" class="title iconfont icon-clock">最近更新</router-link>
+    <router-link :to="moreArticle" class="title iconfont icon-shizhong"> 最近更新</router-link>
 
     <div class="articles">
       <router-link :to="item.path" v-for="(item, index) in topPublishPosts" :key="index">
@@ -78,8 +78,9 @@ export default {
 <style lang='stylus'>
 .latestupdate-wrapper {
   .title {
-    color: $accentColor;
-    font-size: 1.2rem;
+    color var(--textColor)
+    opacity 0.9
+    font-size 1.2rem
   }
 
   .articles {
