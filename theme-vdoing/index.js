@@ -80,25 +80,33 @@ module.exports = (options, ctx) => {
       ['container', {
         type: 'tip',
         defaultTitle: {
-          '/': 'TIP',
+          '/': '提示',
           '/zh/': '提示'
         }
       }],
       ['container', {
         type: 'warning',
         defaultTitle: {
-          '/': 'WARNING',
+          '/': '注意',
           '/zh/': '注意'
         }
       }],
       ['container', {
         type: 'danger',
         defaultTitle: {
-          '/': 'WARNING',
+          '/': '警告',
           '/zh/': '警告'
         }
       }],
-
+      ['container', {
+        type: 'details',
+        before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
+        after: () => '</details>\n',
+        defaultTitle: {
+          '/': '点击查看',
+          '/zh/': '点击查看'
+        }
+      }],
       // 卡片列表
       [
         'container',

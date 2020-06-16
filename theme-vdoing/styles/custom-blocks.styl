@@ -29,7 +29,24 @@
       color darken(red, 40%)
     a
       color var(--textColor)
-      
+
+  &.details
+    display block
+    position relative
+    border-radius 2px
+    margin 1.6em 0
+    padding 1.6em
+    background-color #eee
+    h4
+      margin-top 0
+    figure, p
+      &:last-child
+        margin-bottom 0
+        padding-bottom 0
+    summary
+      outline none
+      cursor pointer
+
 // 深色模式适配
 .theme-mode-dark
   .custom-block
@@ -38,7 +55,8 @@
       color darken(#ffe564, 35%)
       .custom-block-title
         color darken(#ffe564, 15%)
-    &.tip
+    &.tip 
+    &.details
       background-color rgba(243, 245, 247, .2)
       color darken(#42b983, 0%)
     &.danger
@@ -46,4 +64,3 @@
       color darken(red, 50%)
       a
         color $accentColor 
-

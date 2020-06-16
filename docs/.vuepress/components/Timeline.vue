@@ -34,7 +34,7 @@ export default {
             timestamp: "2015.08",
             title: "毕业",
             content:
-              "本科毕业来到深圳，没想到一待就到现在......"
+              "毕业来到深圳，没想到一待就到现在......"
           },
           {
             timestamp: "2019.08",
