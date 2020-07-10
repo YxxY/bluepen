@@ -4,3 +4,4 @@ test.*
 /nav.md
 /.vscode
 .vuepress/config/sidebar.js
+/dist.tar.gz
