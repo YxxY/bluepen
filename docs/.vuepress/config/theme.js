@@ -3,6 +3,7 @@ const sidebar = require("./sidebar");
 module.exports = {
   repo: "yxxy/bluepen",
   // repoLabel: "Github",
+  docsDir: 'docs',
   repoNavEnable: false,
   navbar: true,
   editLinks: true,
