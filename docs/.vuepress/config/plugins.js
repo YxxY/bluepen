@@ -23,7 +23,7 @@ module.exports = [
     [
         '@vuepress/medium-zoom',
         {
-            selector: '.theme-vdoing-content :not(a) :not(.emoji) > img',
+            selector: '.theme-vdoing-content :not(a) :not(.no-zoom) > img',
             delay: 500,
             options: {
                 margin: 24,
