@@ -9,7 +9,7 @@ module.exports = {
   editLinks: true,
   editLinkText: "编辑此页",
   // sidebar: sidebar,
-  sidebar: { mode: 'structuring', collapsable: false},
+  sidebar: { mode: 'structuring', collapsable: true},
   displayAllHeaders: false,
   smoothScroll: true,
   lastUpdated: '更新于', // string | boolean
