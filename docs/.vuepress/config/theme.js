@@ -9,7 +9,7 @@ module.exports = {
   editLinks: true,
   editLinkText: "编辑此页",
   // sidebar: sidebar,
-  sidebar: { mode: 'structuring', collapsable: true},
+  sidebar: { mode: 'structuring', collapsable: true },
   displayAllHeaders: false,
   smoothScroll: true,
   lastUpdated: '更新于', // string | boolean
@@ -17,8 +17,12 @@ module.exports = {
   searchMaxSuggestions: 10,
   nav: [
     {
-      text: "学习",
+      text: "技术",
       items: [
+        // {
+        //   text: "Java",
+        //   link: "/java/install/"
+        // },
         {
           text: "Jenkins",
           link: "/jenkins/install/"
@@ -29,10 +33,10 @@ module.exports = {
         },
       ]
     },
-    {text: '算法', link: '/pages/608b76/'},
-    {text: '分类', link: '/categories/'},
-    {text: '标签', link: '/tags/'},
-    {text: '归档', link: '/archives/'},
+    { text: '算法', link: '/pages/608b76/' },
+    { text: '分类', link: '/categories/' },
+    { text: '标签', link: '/tags/' },
+    { text: '归档', link: '/archives/' },
     { text: '关于', link: '/about', target: '_blank' },
     { text: '留言板', link: '/comment', target: '_blank' },
   ],
