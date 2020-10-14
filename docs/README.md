@@ -14,8 +14,6 @@ features:
   details: 世上无难事，只要肯放弃
 footer: Copyright © 2019 - Present @xu-li
 comment: false
-postList: none
+postList: detailed
 ---
 
----
-<count-down deadline="2020-12-30"/>

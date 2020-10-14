@@ -17,7 +17,7 @@ module.exports = {
   searchMaxSuggestions: 10,
   nav: [
     {
-      text: "技术",
+      text: "编程",
       items: [
         // {
         //   text: "Java",
@@ -31,9 +31,10 @@ module.exports = {
           text: "OS",
           link: "/mac/startup/"
         },
+        { text: '算法', link: '/pages/608b76/' },
       ]
     },
-    { text: '算法', link: '/pages/608b76/' },
+    { text: '随笔', link: '/pages/4d6082/' },
     { text: '分类', link: '/categories/' },
     { text: '标签', link: '/tags/' },
     { text: '归档', link: '/archives/' },
