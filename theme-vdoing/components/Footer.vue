@@ -40,19 +40,18 @@ export default {
   text-align center
   color #666
   box-sizing border-box
-  font-size .85rem
-  transition all .2s ease
+  font-size 0.85rem
+  transition all 0.2s ease
   .icons
     margin-bottom 12px
     .iconfont
       padding 0 10px
-      font-size 19px
+      font-size 1.3rem
   a
     color inherit
     &:hover
       color $accentColor
-
-@media (min-width: ($MQMobile + 1px))
+@media (min-width ($MQMobile + 1px))
   .sidebar-open .footer
     width auto
     padding-left ($sidebarWidth + 1.5rem)

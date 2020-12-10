@@ -141,6 +141,7 @@ codeThemeDark()
   pre[class*="language-"] {
     color: #ccc;
     background: none;
+    text-shadow: none;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     font-size: 1em;
     text-align: left;
@@ -236,6 +237,14 @@ codeThemeDark()
   .token.entity,
   .token.url {
     color: #67cdcc;
+  }
+
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string {
+    background: none;
   }
 
   .token.important,

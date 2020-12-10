@@ -314,7 +314,7 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .home-wrapper
   .banner
     width 100%
@@ -339,16 +339,15 @@ export default {
           margin 2rem auto 1.5rem
         h1 
           margin 0
-          font-size 3.5rem
-        .description, .action 
+          font-size 3.2rem
+        .description, .action
           margin 1.5rem auto
-
-        .description 
+        .description
           max-width 40rem
-          font-size 1.2rem
+          font-size 1.1rem
           line-height 1.3
-          opacity .9
-        .action-button 
+          opacity 0.9
+        .action-button
           display inline-block
           font-size 1.2rem
           background-color $accentColor
@@ -358,7 +357,7 @@ export default {
           box-sizing border-box
           border-bottom 1px solid darken($accentColor, 10%)
           color #fff
-          &:hover 
+          &:hover
             background-color lighten($accentColor, 10%)
       // pc端features
       .features 
@@ -378,8 +377,8 @@ export default {
           // color lighten($bannerTextColor,10%)
           color inherit
           .feature-img
-            width 11rem
-            height 11rem
+            width 10rem
+            height 10rem
             animation heart 1.2s ease-in-out 0s infinite alternate
             animation-play-state paused
           h2 
@@ -389,17 +388,17 @@ export default {
             padding-bottom 0
           p
             opacity 0.8
-            padding 0 .8rem
-      .feature:hover 
-        .feature-img 
-          animation-play-state: running
-        h2,p
+            padding 0 0.8rem
+      .feature:hover
+        .feature-img
+          animation-play-state running
+        h2, p
           color $accentColor
           
 
     // 移动端滑动图标
     .slide-banner
-      margin-top: 2rem;
+      margin-top 2rem
       .banner-wrapper
         position relative
       .slide-banner-scroll
@@ -425,7 +424,7 @@ export default {
               padding-bottom 0
             p
               opacity 0.8
-              padding 0 .8rem
+              padding 0 0.8rem
       .docs-wrapper
         position absolute
         bottom 25px
@@ -438,38 +437,37 @@ export default {
           height 8px
           border-radius 50%
           background var(--textColor)
-          opacity .9
+          opacity 0.9
           &.active
-            opacity .5
-  
+            opacity 0.5
   // 分页不在第一页时，隐藏banner栏
   .main-wrapper
     margin-top 2rem
   .banner.hide-banner
     display none
     & + .main-wrapper
-       margin-top ($navbarHeight + .9rem)
-
-  .main-wrapper   
-    .main-left 
+      margin-top ($navbarHeight + 0.9rem)
+  .main-wrapper
+    .main-left
       .card-box
         margin-bottom .9rem
       .pagination
         margin-bottom 4rem
       .theme-vdoing-content
         padding 0 2rem
-        clear:both;
+        overflow hidden
         &>:first-child
           padding-top 2rem
         &>:last-child
           padding-bottom 2rem
 
 @keyframes heart
-  from{transform:translate(0,0)}
-  to{transform:translate(0,8px)}
-
+  from
+    transform translate(0, 0)
+  to
+    transform translate(0, 8px)
 // 1025px以下
-@media (max-width: 1025px)
+@media (max-width 1025px)
   .home-wrapper
     .banner
       .banner-conent
@@ -487,7 +485,7 @@ export default {
               height 9rem
   
 // 719px以下
-@media (max-width: $MQMobile)  
+@media (max-width $MQMobile)
   .home-wrapper
     .banner
       .banner-conent
@@ -495,28 +493,25 @@ export default {
           display none!important
 
 // 419px以下
-@media (max-width: $MQMobileNarrow) 
+@media (max-width $MQMobileNarrow)
   .home-wrapper
-    .banner-conent 
+    .banner-conent
       padding-left 1.5rem
       padding-right 1.5rem
-
-      .hero 
-        img 
+      .hero
+        img
           max-height 210px
           margin 2rem auto 1.2rem
-        h1 
-          font-size: 2rem
+        h1
+          font-size 2rem
         h1, .description, .action
-          margin: 1.2rem auto
-
-        .description 
-          font-size: 1.2rem
-
+          margin 1.2rem auto
+        .description
+          font-size 1.2rem
         .action-button
           font-size 1rem
           padding 0.6rem 1.2rem
       .feature
         h2
-          font-size: 1.25rem
+          font-size 1.25rem
 </style>
