@@ -17,7 +17,7 @@ npm run build
 cd dist
 
 # 如果是发布到自定义域名
-echo 'bluepen.xu-li.cn' > CNAME
+echo 'bluepen.lazyalex.com' > CNAME
 
 git init
 git add -A
