@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[80],{826:function(t,e,n){"use strict";n.r(e);var s=n(51),r=Object(s.a)({},(function(){var t=this.$createElement,e=this._self._c||t;return e("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[e("p",[this._v("manacher 算法是专门用来解决最长子串问题的优化算法")])])}),[],!1,null,null,null);e.default=r.exports}}]);
