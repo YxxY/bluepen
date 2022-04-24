@@ -22,6 +22,6 @@ echo 'bluepen.lazyalex.com' > CNAME
 git init
 git add -A
 git commit -m 'deploy'
-git push -f "https://yxxy:$GITHUB_TOKEN@github.com/YxxY/bluepen.git" master:gh-pages
+git push -f "https://$GITHUB_TOKEN@github.com/YxxY/bluepen.git" master:gh-pages
 
 cd -
