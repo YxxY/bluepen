@@ -47,12 +47,12 @@ module.exports = {
     moreArticle: '/archives' // “更多文章”跳转的页面，默认'/archives'
   },
   author: { // 文章默认的作者信息，可在md文件中单独配置此信息 String | {name: String, href: String}
-    name: 'Alex Li', // 必需
+    name: 'Alex', // 必需
     href: 'https://github.com/yxxy' // 可选的
   },
   blogger: { // 博主信息，显示在首页侧边栏
     avatar: '/thumb.jpg',
-    name: 'Alex Li',
+    name: 'Alex',
     slogan: '一个好人'
   },
   lastestUpdate: true,
