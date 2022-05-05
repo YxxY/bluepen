@@ -7,7 +7,9 @@
 export default {
   name: 'comment',
   data() {
-    return {};
+    return {
+      secret: process.env.GITTALK_CLIENT_SECRET
+    };
   },
   mounted() {
     let body = document.querySelector('.gitalk-container');
@@ -24,13 +26,12 @@ export default {
     script.onload = () => {
       const commentConfig = {
         clientID: '3c7427f9edf5cff66186',
-        clientSecret: process.env.GITTALK_CLIENT_SECRET,
+        clientSecret: this.secret,
         repo: 'bluepen',
         owner: 'YXXY',
         // 这里接受一个数组，可以添加多个管理员
         admin: ['YxxY'],
         // id 用于当前页面的唯一标识，一般来讲 pathname 足够了，
-       
         // 但是如果你的 pathname 超过 50 个字符，GitHub 将不会成功创建 issue，此情况可以考虑给每个页面生成 hash 值的方法.
         id: location.pathname,
         distractionFreeMode: false,
