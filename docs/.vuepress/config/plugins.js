@@ -65,7 +65,7 @@ module.exports = [
             owner: 'YxxY',
             repo: 'bluepen',
             clientId: 'd54e41a76ad897897e24',
-            clientSecret: process.env.clientSecret,
+            clientSecret: process.env.VSSUE_CLIENT_SECRET,
             labels: ['comment'],
             prefix: '[Comment]'
         },

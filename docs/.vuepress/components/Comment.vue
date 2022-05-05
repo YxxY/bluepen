@@ -24,7 +24,7 @@ export default {
     script.onload = () => {
       const commentConfig = {
         clientID: '3c7427f9edf5cff66186',
-        clientSecret: 'da9ea83e0cb16ffe6d86971a4a912de04bdf3411',
+        clientSecret: process.env.GITTALK_CLIENT_SECRET,
         repo: 'bluepen',
         owner: 'YXXY',
         // 这里接受一个数组，可以添加多个管理员
