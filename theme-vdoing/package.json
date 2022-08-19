@@ -1,38 +1,34 @@
 {
-  "_from": "vuepress-theme-vdoing",
-  "_id": "vuepress-theme-vdoing@1.1.6",
-  "_inBundle": false,
-  "_integrity": "sha512-ka88Ky0Uka27cZt3rlllxn38E6nY8cMQl07lnTv5wJpE9C/o0UNxZgQzblLp6RRUAXuKMpv9vlrggo3SDARBOA==",
-  "_location": "/vuepress-theme-vdoing",
-  "_phantomChildren": {
-    "@types/color-name": "1.1.1"
-  },
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "vuepress-theme-vdoing",
-    "name": "vuepress-theme-vdoing",
-    "escapedName": "vuepress-theme-vdoing",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#DEV:/",
-    "#USER"
-  ],
-  "_resolved": "https://registry.npmjs.org/vuepress-theme-vdoing/-/vuepress-theme-vdoing-1.1.6.tgz",
-  "_shasum": "cefcc8f7ec20501959267c84c4e07279d74cf93d",
-  "_spec": "vuepress-theme-vdoing",
-  "_where": "D:\\coding\\bluepen",
+  "name": "vuepress-theme-vdoing",
+  "version": "1.12.8",
+  "description": "Vdoing theme for VuePress. 一个基于VuePress的知识管理兼博客主题。",
   "author": {
-    "name": "gaoyi",
-    "url": "Evan"
+    "name": "gaoyi(Evan) Xu"
   },
+  "homepage": "https://github.com/xugaoyi/vuepress-theme-vdoing#readme",
   "bugs": {
     "url": "https://github.com/xugaoyi/vuepress-theme-vdoing/issues"
   },
-  "bundleDependencies": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xugaoyi/vuepress-theme-vdoing.git"
+  },
+  "keywords": [
+    "documentation",
+    "vue",
+    "vuepress",
+    "generator",
+    "theme",
+    "blog"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "Evan xu",
+      "email": "894072666@qq.com"
+    }
+  ],
   "dependencies": {
     "@better-scroll/core": "^2.0.0-beta.6",
     "@better-scroll/slide": "^2.0.0-beta.6",
@@ -50,29 +46,7 @@
     "vuepress-plugin-container": "^2.0.2",
     "vuepress-plugin-smooth-scroll": "^0.0.3"
   },
-  "deprecated": false,
-  "description": "Vdoing theme for VuePress. 一个基于VuePress的知识管理兼博客主题。",
-  "homepage": "https://github.com/xugaoyi/vuepress-theme-vdoing#readme",
-  "keywords": [
-    "documentation",
-    "vue",
-    "vuepress",
-    "generator",
-    "theme",
-    "blog"
-  ],
-  "license": "MIT",
-  "main": "index.js",
-  "maintainers": [
-    {
-      "name": "Evan xu",
-      "email": "894072666@qq.com"
-    }
-  ],
-  "name": "vuepress-theme-vdoing",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xugaoyi/vuepress-theme-vdoing.git"
-  },
-  "version": "1.1.6"
+  "devDependencies": {
+    "@vuepress/types": "^1.9.5"
+  }
 }

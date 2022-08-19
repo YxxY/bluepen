@@ -1,10 +1,9 @@
 <template>
   <div>
     <main class="page">
-      <slot name="top" />
-
       <div :class="`theme-vdoing-wrapper ${bgStyle}`">
         <ArticleInfo v-if="isArticle()" />
+        <div v-else class="placeholder" />
         <component
           class="theme-vdoing-content"
           v-if="pageComponent"
@@ -17,12 +16,17 @@
             <img
               :src="currentBadge"
               v-if="$themeConfig.titleBadge === false ? false : true"
-            />
-            {{this.$page.title}}
+            />{{ this.$page.title
+            }}<span class="title-tag" v-if="$frontmatter.titleTag">{{
+              $frontmatter.titleTag
+            }}</span>
           </h1>
+
+          <slot name="top" v-if="isShowSlotT" />
+
           <Content class="theme-vdoing-content" />
         </div>
-
+        
         <PageEdit />
         <PageNav v-bind="{ sidebarItems }" />
       </div>
@@ -35,7 +39,7 @@
         v-if="isShowUpdateBar"
       />
 
-      <slot name="bottom" />
+      <slot name="bottom" v-if="isShowSlotB" />
     </main>
   </div>
 </template>
@@ -79,15 +83,38 @@ export default {
     showTitle () {
       return !this.$frontmatter.pageComponent
     },
-    showRightMenu () {
-      return this.$page.headers && (this.$frontmatter && this.$frontmatter.sidebar && this.$frontmatter.sidebar !== false) !== false
+    showRightMenu() {
+      const { $frontmatter, $themeConfig, $page } = this
+      const { sidebar } = $frontmatter
+      return (
+        $themeConfig.rightMenuBar !== false &&
+        $page.headers &&
+        ($frontmatter && sidebar && sidebar !== false) !== false
+      )
     },
-    pageComponent () {
+    pageComponent() {
       return this.$frontmatter.pageComponent ? this.$frontmatter.pageComponent.name : false
+    },
+    isShowSlotT() {
+      return this.getShowStatus('pageTshowMode')
+    },
+    isShowSlotB() {
+      return this.getShowStatus('pageBshowMode')
     }
   },
   methods: {
-    isArticle () {
+    getShowStatus(prop) {
+      const { htmlModules } = this.$themeConfig
+      if (!htmlModules) return false
+      if (htmlModules[prop] === 'article') { // 仅文章页显示
+        return this.isArticle()
+      } else if (htmlModules[prop] === 'custom') { // 仅自定义页显示
+        return !(this.isArticle())
+      } else { // 全部显示
+        return true
+      }
+    },
+    isArticle() {
       return this.$frontmatter.article !== false
     }
   }
@@ -103,16 +130,39 @@ export default {
   @media (max-width $MQMobile)
     padding-top $navbarHeight
   @media (min-width $MQMobile)
-    padding-top ($navbarHeight + 1.5rem)
+    padding-top: ($navbarHeight + 1.5rem)
   >*
     @extend $vdoing-wrapper
+.theme-style-line
+  .page
+    @media (min-width $MQMobile)
+      padding-top $navbarHeight
+    &>*
+      &:not(.footer)
+        box-shadow 0 0
+    .placeholder
+      @media (min-width 720px)
+        height 1.2rem
 .theme-vdoing-wrapper
   .content-wrapper
     position relative
-  h1 img
-    margin-bottom -0.2rem
-    max-width 2.2rem
-    max-height 2.2rem
+  h1
+    .title-tag
+      height 1.5rem
+      line-height 1.5rem
+      border 1px solid $activeColor
+      color $activeColor
+      font-size 1rem
+      padding 0 0.4rem
+      border-radius 0.2rem
+      margin-left 0.5rem
+      transform translate(0, -0.25rem)
+      display inline-block
+    img
+      margin-bottom -0.2rem
+      margin-right 0.2rem
+      max-width 2.2rem
+      max-height 2.2rem
 .theme-vdoing-wrapper
   --linesColor rgba(50, 0, 0, 0.05)
   &.bg-style-1 // 方格
@@ -146,9 +196,31 @@ export default {
     .page
       padding-right 0.8rem !important
 @media (max-width 1279px)
-  .right-menu-wrapper
-    display none
+  .have-rightmenu
+    .right-menu-wrapper
+      display none
 @media (min-width 1280px)
-  .sidebar .sidebar-sub-headers
+  .have-rightmenu
+    .sidebar .sidebar-sub-headers
+      display none
+// 左侧边栏只有一项且没有右侧边栏时
+.theme-container.only-sidebarItem:not(.have-rightmenu)
+  .sidebar, .sidebar-button
     display none
+  @media (min-width ($MQMobile + 1px))
+    .page
+      padding-left 0.8rem !important
+  @media (max-width $MQMobile)
+    .page
+      padding-left 0rem !important
+    .sidebar, .sidebar-button
+      display block
+// 左侧边栏只有一项且有右侧边栏时
+.theme-container.only-sidebarItem.have-rightmenu
+  @media (min-width 720px) and (max-width 1279px)
+    .sidebar, .sidebar-button
+      display block
+  @media (min-width 1280px)
+    .sidebar, .sidebar-button
+      display none
 </style>

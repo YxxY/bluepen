@@ -33,9 +33,11 @@
             v-for="item in modeList"
             :key="item.KEY"
             class="iconfont"
-            :class="[item.icon, {active: item.KEY === currentMode}]"
+            :class="[item.icon, { active: item.KEY === currentMode }]"
             @click="toggleMode(item.KEY)"
-          >{{item.name}}</li>
+          >
+            {{ item.name }}
+          </li>
         </ul>
       </transition>
     </div>
@@ -54,7 +56,7 @@ export default {
       scrollTop: null,
       showCommentBut: false,
       commentTop: null,
-      currentMode: null,
+      currentMode: '',
       showModeBox: false,
       modeList: [
         {
@@ -87,8 +89,7 @@ export default {
     }
   },
   mounted () {
-    this.currentMode = storage.get('mode') || 'auto'
-
+    this.currentMode = storage.get('mode') ||  this.$themeConfig.defaultMode ||'auto'
     this.scrollTop = this.getScrollTop()
     window.addEventListener('scroll', debounce(() => {
       this.scrollTop = this.getScrollTop()

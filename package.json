@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "sidebar": "node bin/sidebar.js",
-    "dev": "nodemon --ext js --watch docs/.vuepress/ --exec vuepress dev docs",
+    "dev": "nodemon --ext js --watch docs/.vuepress/ --exec node_modules/.bin/vuepress dev docs",
     "dev-build": "vuepress build docs",
     "build": "cross-env NODE_ENV=production npm run dev-build",
     "deploy": "bash bin/deploy.sh"

@@ -4,23 +4,25 @@
       to="/categories/"
       class="title iconfont icon-wenjianjia"
       title="全部分类"
-    >{{ length === 'all' ? '全部分类' : '文章分类' }}</router-link>
+      >{{ length === 'all' ? '全部分类' : '文章分类' }}</router-link
+    >
 
     <div class="categories">
       <router-link
         :to="`/categories/?category=${encodeURIComponent(item.key)}`"
         v-for="(item, index) in categories"
         :key="index"
-        :class="{active: item.key === category}"
+        :class="{ active: item.key === category }"
       >
-        {{item.key}}
-        <span>{{item.length}}</span>
+        {{ item.key }}
+        <span>{{ item.length }}</span>
       </router-link>
       <router-link
         to="/categories/"
         v-if="length !== 'all' && length < categoriesData.length"
         class="more"
-      >更多...</router-link>
+        >更多 ...</router-link
+      >
     </div>
   </div>
 </template>
@@ -59,18 +61,21 @@ export default {
     color var(--textColor)
     opacity 0.9
     font-size 1.2rem
+    padding 0 0.95rem
+    &::before
+      margin-right 0.3rem
   .categories
     margin-top 0.6rem
     a
       display block
-      padding 8px 0.3rem 7px 0.3rem
+      padding 8px 0.95rem 7px 0.95rem
       color var(--textColor)
       opacity 0.8
       font-size 0.95rem
       line-height 0.95rem
       position relative
-      transition all 0.3s
-      border-bottom 1px solid var(--borderColor)
+      transition all 0.2s
+      border-left 2px solid transparent
       margin-top -1px
       overflow hidden
       white-space nowrap
@@ -78,10 +83,11 @@ export default {
       @media (max-width $MQMobile)
         font-weight 400
       &.more
+        // color $accentColor
+      &:not(.active):hover
         color $accentColor
-      &:hover
-        color $accentColor
-        padding-left 0.6rem
+        background #f8f8f8
+        border-color $accentColor
         span
           opacity 0.8
       span
@@ -103,4 +109,6 @@ export default {
         padding-left 0.8rem
         border-radius 1px
         border-color transparent
+.theme-mode-dark .categories-wrapper .categories a:not(.active):hover, .theme-mode-read .categories-wrapper .categories a:not(.active):hover
+  background var(--customBlockBg)
 </style>

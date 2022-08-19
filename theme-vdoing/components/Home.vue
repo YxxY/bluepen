@@ -2,27 +2,44 @@
   <div class="home-wrapper">
 
     <!-- banner块 s -->
-    <div class="banner" :class="{'hide-banner': !showBanner}" :style="bannerBgStyle">
-      <div class="banner-conent" :style="!homeData.features && !homeData.heroImage && `padding-top: 7rem`">
+    <div
+      class="banner"
+      :class="{ 'hide-banner': !showBanner }"
+      :style="bannerBgStyle"
+    >
+      <div
+        class="banner-conent"
+        :style="
+          !homeData.features && !homeData.heroImage && `padding-top: 7rem`
+        "
+      >
         <header class="hero">
-          <img v-if="homeData.heroImage" :src="$withBase(homeData.heroImage)" :alt="homeData.heroAlt || 'hero'" />
-          <h1 v-if="homeData.heroText !== null" id="main-title">{{ homeData.heroText || $title || 'Hello' }}</h1>
-          <p class="description">{{ homeData.tagline || $description || 'Welcome to your VuePress site' }}</p>
+          <img
+            v-if="homeData.heroImage"
+            :src="$withBase(homeData.heroImage)"
+            :alt="homeData.heroAlt"
+          />
+          <h1 v-if="homeData.heroText" id="main-title">
+            {{ homeData.heroText }}
+          </h1>
+          <p v-if="homeData.tagline" class="description">
+            {{ homeData.tagline }}
+          </p>
           <p class="action" v-if="homeData.actionText && homeData.actionLink">
             <NavLink class="action-button" :item="actionLink" />
           </p>
         </header>
 
         <!-- PC端features块 s -->
-        <div class="features"
-         v-if="homeData.features && homeData.features.length && !isMQMobile"
-        >
-          <div class="feature" v-for="(feature, index) in homeData.features" :key="index">
-            <router-link
-              v-if="feature.link"
-              :to="feature.link"
-            >
-              <img class="feature-img"
+        <div class="features" v-if="hasFeatures && !isMQMobile">
+          <div
+            class="feature"
+            v-for="(feature, index) in homeData.features"
+            :key="index"
+          >
+            <router-link v-if="feature.link" :to="feature.link">
+              <img
+                class="feature-img"
                 v-if="feature.imgUrl"
                 :src="$withBase(feature.imgUrl)"
                 :alt="feature.title"
@@ -30,11 +47,9 @@
               <h2>{{ feature.title }}</h2>
               <p>{{ feature.details }}</p>
             </router-link>
-            <a
-              v-else
-              href="javascript:;"
-            >
-              <img class="feature-img"
+            <a v-else href="javascript:;">
+              <img
+                class="feature-img"
                 v-if="feature.imgUrl"
                 :src="$withBase(feature.imgUrl)"
                 :alt="feature.title"
@@ -47,21 +62,20 @@
         <!-- PC端features块 e -->
       </div>
 
-      <!-- 移动端features块 s --> <!-- isMQMobile放到v-if上线后会报错 -->
-      <div
-        class="slide-banner"
-        v-if="homeData.features && homeData.features.length"
-        v-show="isMQMobile"
-      > 
+      <!-- 移动端features块 s -->
+      <!-- isMQMobile放到v-if上线后会报错 -->
+      <div class="slide-banner" v-if="hasFeatures" v-show="isMQMobile">
         <div class="banner-wrapper">
           <div class="slide-banner-scroll" ref="slide">
             <div class="slide-banner-wrapper">
-              <div class="slide-item" v-for="(feature, index) in homeData.features" :key="index">
-                <router-link
-                  v-if="feature.link"
-                  :to="feature.link"
-                >
-                  <img class="feature-img"
+              <div
+                class="slide-item"
+                v-for="(feature, index) in homeData.features"
+                :key="index"
+              >
+                <router-link v-if="feature.link" :to="feature.link">
+                  <img
+                    class="feature-img"
                     v-if="feature.imgUrl"
                     :src="$withBase(feature.imgUrl)"
                     :alt="feature.title"
@@ -69,11 +83,9 @@
                   <h2>{{ feature.title }}</h2>
                   <p>{{ feature.details }}</p>
                 </router-link>
-                <a
-                  v-else
-                  href="javascript:;"
-                >
-                  <img class="feature-img"
+                <a v-else href="javascript:;">
+                  <img
+                    class="feature-img"
                     v-if="feature.imgUrl"
                     :src="$withBase(feature.imgUrl)"
                     :alt="feature.title"
@@ -89,7 +101,8 @@
               class="doc"
               v-for="(item, index) in homeData.features.length"
               :key="index"
-              :class="{'active': currentPageIndex === index}"></span>
+              :class="{ active: currentPageIndex === index }"
+            ></span>
           </div>
         </div>
       </div>
@@ -105,15 +118,17 @@
         <UpdateArticle
           class="card-box"
           v-if="homeData.postList === 'simple'"
-          :length="5"
+          :length="homeData.simplePostListLength || 5"
+          :moreArticle="
+            $themeConfig.updateBar && $themeConfig.updateBar.moreArticle
+          "
         />
-        
+
         <!-- 详情版文章列表 -->
-        <template v-else-if="!homeData.postList || homeData.postList === 'detailed'">
-          <PostList
-          :currentPage="currentPage"
-          :perPage="perPage"
-          />
+        <template
+          v-else-if="!homeData.postList || homeData.postList === 'detailed'"
+        >
+          <PostList :currentPage="currentPage" :perPage="perPage" />
           <Pagination
             :total="total"
             :perPage="perPage"
@@ -126,10 +141,13 @@
         <Content class="theme-vdoing-content custom card-box"/>
       </template>
 
-      <template #mainRight>
-        <BloggerBar  v-if="$themeConfig.blogger" />
+      <template v-if="!homeData.hideRightBar" #mainRight>
+        <BloggerBar v-if="$themeConfig.blogger" />
         <CategoriesBar
-          v-if="$themeConfig.category !== false && $categoriesAndTags.categories.length"
+          v-if="
+            $themeConfig.category !== false &&
+            $categoriesAndTags.categories.length
+          "
           :categoriesData="$categoriesAndTags.categories"
           :length="10"
         />
@@ -138,7 +156,12 @@
           :tagsData="$categoriesAndTags.tags"
           :length="30"
         />
-        <LastestUpdateBar v-if="$themeConfig.lastestUpdate" />
+      	<LastestUpdateBar v-if="$themeConfig.lastestUpdate" />	
+	<div 
+	  class="custom-html-box card-box"
+          v-if="homeSidebarB"
+          v-html="homeSidebarB"
+        ></div>
       </template>
     </MainLayout>
 
@@ -177,11 +200,58 @@ export default {
       currentPage: 1// 当前页
     }
   },
-  components: { NavLink, MainLayout, PostList, UpdateArticle, BloggerBar, CategoriesBar, TagsBar, LastestUpdateBar, Pagination },
+  computed: {
+    homeData() {
+      return {
+        ...this.$page.frontmatter
+      }
+    },
+    hasFeatures() {
+      return !!(this.homeData.features && this.homeData.features.length)
+    },
+    homeSidebarB() {
+      const { htmlModules } = this.$themeConfig
+      return htmlModules ? htmlModules.homeSidebarB : ''
+    },
+    showBanner() { // 当分页不在第一页时隐藏banner栏
+      return this.$route.query.p
+        && this.$route.query.p != 1
+        && (!this.homeData.postList || this.homeData.postList === 'detailed')
+        ? false : true
+    },
+    bannerBgStyle() {
+      let bannerBg = this.homeData.bannerBg
+      if (!bannerBg || bannerBg === 'auto') { // 默认
+        if (this.$themeConfig.bodyBgImg) { // 当有bodyBgImg时，不显示背景
+          return ''
+        } else { // 网格纹背景
+          return 'background: rgb(40,40,45) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=)'
+        }
+      } else if (bannerBg === 'none') { // 无背景
+        if (this.$themeConfig.bodyBgImg) {
+          return ''
+        } else {
+          return 'background: var(--mainBg);color: var(--textColor)'
+        }
+      } else if (bannerBg.indexOf('background:') > -1) { // 自定义背景样式
+        return bannerBg
+      } else if (bannerBg.indexOf('.') > -1) { // 大图
+        return `background: url(${this.$withBase(bannerBg)}) center center / cover no-repeat`
+      }
+
+    },
+    actionLink() {
+      return {
+        link: this.homeData.actionLink,
+        text: this.homeData.actionText
+      };
+    }
+  },
+  components: { NavLink, MainLayout, PostList, UpdateArticle, BloggerBar, CategoriesBar, TagsBar, Pagination,  LastestUpdateBar},
   created() {
     this.total = this.$sortPosts.length
   },
-  beforeMount(){
+  beforeMount() {
     this.isMQMobile = window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false; // vupress在打包时不能在beforeCreate(),created()访问浏览器api（如window）
   },
   mounted() {
@@ -189,20 +259,21 @@ export default {
       this.currentPage = Number(this.$route.query.p)
     }
 
-    if (this.isMQMobile && (!this.$route.query.p || this.$route.query.p == 1)) {
+    if (this.hasFeatures && this.isMQMobile && (!this.$route.query.p || this.$route.query.p == 1)) {
       this.init()
     }
 
-    window.addEventListener('resize', () => {
-      this.isMQMobile = window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false;
-      if(this.isMQMobile && !this.slide && !this.mark){
-        this.mark++
-        setTimeout(() => {
-          this.init()
-        },60)
-      }
-    })
-
+    if (this.hasFeatures) {
+      window.addEventListener('resize', () => {
+        this.isMQMobile = window.innerWidth < MOBILE_DESKTOP_BREAKPOINT ? true : false;
+        if (this.isMQMobile && !this.slide && !this.mark) {
+          this.mark++
+          setTimeout(() => {
+            this.init()
+          }, 60)
+        }
+      })
+    }
   },
   beforeDestroy() {
     clearTimeout(this.playTimer)
@@ -210,13 +281,13 @@ export default {
   },
   watch: {
     '$route.query.p'() {
-      if(!this.$route.query.p){
+      if (!this.$route.query.p) {
         this.currentPage = 1
       } else {
         this.currentPage = Number(this.$route.query.p)
       }
 
-      if (this.currentPage === 1 && this.isMQMobile) {
+      if (this.hasFeatures && this.currentPage === 1 && this.isMQMobile) {
         setTimeout(() => {
           this.slide && this.slide.destroy()
           this.init()
@@ -271,46 +342,6 @@ export default {
     },
   },
 
-  computed: {
-    showBanner() { // 当分页不在第一页时隐藏banner栏
-      return this.$route.query.p
-       && this.$route.query.p != 1
-       && (!this.homeData.postList || this.homeData.postList === 'detailed')
-       ? false : true
-    },
-    bannerBgStyle() {
-      let bannerBg = this.homeData.bannerBg
-      if(!bannerBg || bannerBg === 'auto') { // 默认
-        if (this.$themeConfig.bodyBgImg) { // 当有bodyBgImg时，不显示背景
-          return ''
-        } else { // 网格纹背景
-          return 'background: rgb(40,40,45) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=)'
-        }
-      } else if (bannerBg === 'none') { // 无背景
-        if (this.$themeConfig.bodyBgImg) {
-          return ''
-        } else {
-          return 'background: var(--mainBg);color: var(--textColor)'
-        }
-      } else if (bannerBg.indexOf('background') > -1) { // 自定义背景样式
-        return bannerBg
-      } else if (bannerBg.indexOf('.') > -1) { // 大图
-        return `background: url(${this.$withBase(bannerBg)}) center center / cover no-repeat`
-      }
-
-    },
-    homeData() {
-      return {
-        ...this.$page.frontmatter
-      }
-    },
-    actionLink() {
-      return {
-        link: this.homeData.actionLink,
-        text: this.homeData.actionText
-      };
-    }
-  }
 };
 </script>
 
@@ -329,7 +360,7 @@ export default {
       position relative
       z-index 1
       overflow hidden
-      .hero 
+      .hero
         text-align center
         margin-top 3rem
         img
@@ -337,7 +368,7 @@ export default {
           max-height 240px
           display block
           margin 2rem auto 1.5rem
-        h1 
+        h1
           margin 0
           font-size 3.2rem
         .description, .action
@@ -360,7 +391,7 @@ export default {
           &:hover
             background-color lighten($accentColor, 10%)
       // pc端features
-      .features 
+      .features
         padding 2rem 0
         margin-top 2.5rem
         display flex
@@ -441,26 +472,29 @@ export default {
           &.active
             opacity 0.5
   // 分页不在第一页时，隐藏banner栏
-  .main-wrapper
-    margin-top 2rem
   .banner.hide-banner
     display none
     & + .main-wrapper
-      margin-top ($navbarHeight + 0.9rem)
+      margin-top: ($navbarHeight + 0.9rem)
   .main-wrapper
+    margin-top 2rem
     .main-left
       .card-box
-        margin-bottom .9rem
+        margin-bottom 2rem
       .pagination
-        margin-bottom 4rem
+        margin-bottom 3rem
       .theme-vdoing-content
         padding 0 2rem
         overflow hidden
+        border none
         &>:first-child
           padding-top 2rem
         &>:last-child
           padding-bottom 2rem
-
+    .main-right
+      .custom-html-box
+        padding 0
+        overflow hidden
 @keyframes heart
   from
     transform translate(0, 0)
@@ -490,8 +524,7 @@ export default {
     .banner
       .banner-conent
         .features
-          display none!important
-
+          display none !important
 // 419px以下
 @media (max-width $MQMobileNarrow)
   .home-wrapper
@@ -514,4 +547,8 @@ export default {
       .feature
         h2
           font-size 1.25rem
+.theme-style-line
+  .main-wrapper
+    @media (max-width 719px)
+      margin-top -1px
 </style>

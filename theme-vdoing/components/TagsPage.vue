@@ -7,11 +7,7 @@
           :tagsData="$categoriesAndTags.tags"
           :tag="tag"
         />
-        <PostList
-          :currentPage="currentPage"
-          :perPage="perPage"
-          :tag="tag"
-        />
+        <PostList :currentPage="currentPage" :perPage="perPage" :tag="tag" />
         <Pagination
           :total="total"
           :perPage="perPage"
@@ -38,7 +34,7 @@ import Pagination from '@theme/components/Pagination'
 import TagsBar from '@theme/components/TagsBar'
 
 export default {
-  data () {
+  data() {
     return {
       tag: '',
       total: 0, // 总长
@@ -47,8 +43,9 @@ export default {
     }
   },
   components: { MainLayout, PostList, Pagination, TagsBar },
-  mounted () {
+  mounted() {
     const queryTag = this.$route.query.tag
+
     if (queryTag) {
       this.tag = queryTag
       this.total = this.$groupPosts.tags[queryTag].length
@@ -60,17 +57,17 @@ export default {
     }
   },
   methods: {
-    handlePagination (i) { // 分页
+    handlePagination(i) { // 分页
       this.currentPage = i
     }
   },
   watch: {
-    '$route.query.tag' () {
-      this.tag = decodeURIComponent(this.$route.query.tag)
-      if (this.tag !== 'undefined') {
+    '$route.query.tag'(tag) {
+      this.tag = tag ? decodeURIComponent(tag) : ''
+
+      if (this.tag) {
         this.total = this.$groupPosts.tags[this.tag].length
       } else {
-        this.tag = undefined
         this.total = this.$sortPosts.length
       }
       this.currentPage = 1
@@ -84,7 +81,7 @@ export default {
 .tags-page
   .tags-wrapper
     position sticky
-    top ($navbarHeight + 0.9rem)
+    top: ($navbarHeight + 0.9rem)
     max-height calc(100vh - 10rem)
     min-height 4.2rem
     @media (max-width $MQMobile)
@@ -118,4 +115,11 @@ export default {
         display block
       .tags
         max-height 11.5rem
+.theme-style-line
+  .tags-page
+    .main-left
+      .tags-wrapper
+        @media (max-width $MQMobile)
+          margin-top -0.91rem
+          margin-bottom -1px
 </style>

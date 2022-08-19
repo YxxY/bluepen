@@ -5,14 +5,13 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <Navbar
-      v-if="shouldShowNavbar"
-      @toggle-sidebar="toggleSidebar"
-    />
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
+
+    <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
 
     <div
-      class="sidebar-mask"
-      @click="toggleSidebar(false)"
+      v-if="$themeConfig.sidebarHoverTriggerOpen !== false"
+      class="sidebar-hover-trigger"
     ></div>
 
     <Sidebar
@@ -20,14 +19,20 @@
       @toggle-sidebar="toggleSidebar"
       v-show="showSidebar"
     >
-      <slot
-        name="sidebar-top"
-        #top
-      />
-      <slot
-        name="sidebar-bottom"
-        #bottom
-      />
+      <template #top v-if="sidebarSlotTop">
+        <div
+          class="sidebar-slot sidebar-slot-top"
+          v-html="sidebarSlotTop"
+        ></div>
+      </template>
+      <template #bottom v-if="sidebarSlotBottom">
+        <div
+          class="sidebar-slot sidebar-slot-bottom"
+          v-html="sidebarSlotBottom"
+        ></div>
+      </template>
+      <!-- <slot name="sidebar-top" #top />
+      <slot name="sidebar-bottom" #bottom /> -->
     </Sidebar>
 
     <!-- 首页 -->
@@ -43,28 +48,50 @@
     <ArchivesPage v-else-if="$page.frontmatter.archivesPage" />
 
     <!-- 文章页或其他页 -->
-    <Page
-      v-else
-      :sidebar-items="sidebarItems"
-    >
-      <slot
+    <Page v-else :sidebar-items="sidebarItems">
+      <template #top v-if="pageSlotTop">
+        <div class="page-slot page-slot-top" v-html="pageSlotTop"></div>
+      </template>
+      <template #bottom v-if="pageSlotBottom">
+        <div class="page-slot page-slot-bottom" v-html="pageSlotBottom"></div>
+      </template>
+      <!-- <slot
         name="page-top"
         #top
       />
       <slot
         name="page-bottom"
         #bottom
-      />
+      /> -->
     </Page>
 
     <Footer />
 
-    <Buttons
-      ref="buttons"
-      @toggle-theme-mode="toggleThemeMode"
-    />
+    <Buttons ref="buttons" @toggle-theme-mode="toggleThemeMode" />
 
     <BodyBgImg v-if="$themeConfig.bodyBgImg" />
+
+    <!-- 自定义html插入左右下角的小窗口 -->
+    <div
+      class="custom-html-window custom-html-window-lb"
+      v-if="windowLB"
+      v-show="showWindowLB"
+    >
+      <div class="custom-wrapper">
+        <span class="close-but" @click="showWindowLB = false">×</span>
+        <div v-html="windowLB" />
+      </div>
+    </div>
+    <div
+      class="custom-html-window custom-html-window-rb"
+      v-if="windowRB"
+      v-show="showWindowRB"
+    >
+      <div class="custom-wrapper">
+        <span class="close-but" @click="showWindowRB = false">×</span>
+        <div v-html="windowRB" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -89,25 +116,46 @@ const NAVBAR_HEIGHT = 58 // 导航栏高度
 export default {
   components: { Home, Navbar, Page, CategoriesPage, TagsPage, ArchivesPage, Sidebar, Footer, Buttons, BodyBgImg },
 
-  data () {
+  data() {
     return {
       hideNavbar: false,
       isSidebarOpen: true,
       showSidebar: false,
-      themeMode: 'light'
+      themeMode: 'auto',
+      showWindowLB: true,
+      showWindowRB: true
     }
   },
   computed: {
-    showRightMenu () {
+    sidebarSlotTop() {
+      return this.getHtmlStr('sidebarT')
+    },
+    sidebarSlotBottom() {
+      return this.getHtmlStr('sidebarB')
+    },
+    pageSlotTop() {
+      return this.getHtmlStr('pageT')
+    },
+    pageSlotBottom() {
+      return this.getHtmlStr('pageB')
+    },
+    windowLB() {
+      return this.getHtmlStr('windowLB')
+    },
+    windowRB() {
+      return this.getHtmlStr('windowRB')
+    },
+    showRightMenu() {
       const { headers } = this.$page
       return (
         !this.$frontmatter.home
+        && this.$themeConfig.rightMenuBar !== false
         && headers
         && headers.length
         && this.$frontmatter.sidebar !== false
       )
     },
-    shouldShowNavbar () {
+    shouldShowNavbar() {
       const { themeConfig } = this.$site
       const { frontmatter } = this.$page
       if (
@@ -124,16 +172,17 @@ export default {
       )
     },
 
-    shouldShowSidebar () {
+    shouldShowSidebar() {
       const { frontmatter } = this.$page
       return (
         !frontmatter.home
         && frontmatter.sidebar !== false
         && this.sidebarItems.length
+        && frontmatter.showSidebar !== false
       )
     },
 
-    sidebarItems () {
+    sidebarItems() {
       return resolveSidebarItems(
         this.$page,
         this.$page.regularPath,
@@ -142,7 +191,7 @@ export default {
       )
     },
 
-    pageClasses () {
+    pageClasses() {
       const userPageClass = this.$page.frontmatter.pageClass
       return [
         {
@@ -151,23 +200,27 @@ export default {
           'sidebar-open': this.isSidebarOpen,
           'no-sidebar': !this.shouldShowSidebar,
           'have-rightmenu': this.showRightMenu,
-          'have-body-img': this.$themeConfig.bodyBgImg
+          'have-body-img': this.$themeConfig.bodyBgImg,
+          'only-sidebarItem': this.sidebarItems.length === 1 && this.sidebarItems[0].type === 'page', // 左侧边栏只有一项时
         },
-        // 'theme-mode-' + this.themeMode,
         userPageClass
       ]
     }
   },
-  created () {
+  created() {
     const sidebarOpen = this.$themeConfig.sidebarOpen
     if (sidebarOpen === false) {
       this.isSidebarOpen = sidebarOpen
     }
   },
-  beforeMount () {
+  beforeMount() {
     this.isSidebarOpenOfclientWidth()
     const mode = storage.get('mode') // 不放在created是因为vuepress不能在created访问浏览器api，如window
-    if (!mode || mode === 'auto') { // 当未切换过模式，或模式处于'跟随系统'时
+    const { defaultMode } = this.$themeConfig
+
+    if (defaultMode && defaultMode !== 'auto' && !mode ) {
+      this.themeMode = defaultMode
+    } else if(!mode || mode === 'auto' || defaultMode === 'auto') { // 当未切换过模式，或模式处于'跟随系统'时
       this._autoMode()
     } else {
       this.themeMode = mode
@@ -184,8 +237,7 @@ export default {
       document.head.appendChild(linkElm)
     }
   },
-  mounted () {
-
+  mounted() {
     // 初始化页面时链接锚点无法跳转到指定id的解决方案
     const hash = document.location.hash;
     if (hash.length > 1) {
@@ -213,44 +265,49 @@ export default {
         setTimeout(() => { t = p }, 0)
       }
     }, 300))
-
   },
   watch: {
-    isSidebarOpen () {
+    isSidebarOpen() {
       if (this.isSidebarOpen) {  // 侧边栏打开时，恢复导航栏显示
         this.hideNavbar = false
       }
     },
-    themeMode () {
+    themeMode() {
       this.setBodyClass()
     }
   },
   methods: {
-    setBodyClass () {
-      document.body.className = 'theme-mode-' + this.themeMode
+    getHtmlStr(module) {
+      const { htmlModules } = this.$themeConfig
+      return htmlModules ? htmlModules[module] : ''
     },
-    getScrollTop () {
+    setBodyClass() {
+      let { pageStyle = 'card', bodyBgImg } = this.$themeConfig
+      if (pageStyle !== 'card' && pageStyle !== 'line' || bodyBgImg) { pageStyle = 'card' }
+      document.body.className = `theme-mode-${this.themeMode} theme-style-${pageStyle}`
+    },
+    getScrollTop() {
       return window.pageYOffset
         || document.documentElement.scrollTop
         || document.body.scrollTop || 0
     },
-    isSidebarOpenOfclientWidth () {
+    isSidebarOpenOfclientWidth() {
       if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
         this.isSidebarOpen = false
       }
     },
-    toggleSidebar (to) {
+    toggleSidebar(to) {
       this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
       this.$emit('toggle-sidebar', this.isSidebarOpen)
     },
-    _autoMode () {
+    _autoMode() {
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) { // 系统处于深色模式
         this.themeMode = 'dark'
       } else {
         this.themeMode = 'light'
       }
     },
-    toggleThemeMode (key) {
+    toggleThemeMode(key) {
       if (key === 'auto') {
         this._autoMode()
       } else {
@@ -260,14 +317,14 @@ export default {
     },
 
     // side swipe
-    onTouchStart (e) {
+    onTouchStart(e) {
       this.touchStart = {
         x: e.changedTouches[0].clientX,
         y: e.changedTouches[0].clientY
       }
     },
 
-    onTouchEnd (e) {
+    onTouchEnd(e) {
       const dx = e.changedTouches[0].clientX - this.touchStart.x
       const dy = e.changedTouches[0].clientY - this.touchStart.y
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
@@ -281,3 +338,45 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+.custom-html-window
+  position fixed
+  bottom 0
+  display flex
+  overflow hidden
+  font-weight 350
+  @media (max-width 960px)
+    display none
+  .custom-wrapper
+    position relative
+    max-width 200px
+    max-height 400px
+    .close-but
+      cursor pointer
+      position absolute
+      right 0
+      top 0
+      font-size 1.5rem
+      line-height 1.5rem
+      width 1.5rem
+      height 1.5rem
+      opacity 0
+      transition all 0.2s
+      &:hover
+        opacity 0.9
+    &:hover
+      .close-but
+        opacity 0.7
+  &.custom-html-window-lb
+    left 0
+    z-index 99
+    &>*
+      align-self flex-end
+  &.custom-html-window-rb
+    right 80px
+    z-index 10
+    justify-content flex-end
+    &>*
+      align-self flex-end
+</style>
