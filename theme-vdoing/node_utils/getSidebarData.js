@@ -115,7 +115,7 @@ function mapTocToSidebar(root, collapsable, prefix = '') {
   files.forEach(filename => {
     const file = path.resolve(root, filename); // 方法：将路径或路径片段的序列解析为绝对路径
     const stat = fs.statSync(file); // 文件信息
-    if (filename === '.DS_Store') { // 过滤.DS_Store文件
+    if (['.DS_Store', 'images'].includes(filename)) { // 过滤.DS_Store文件
       return
     }
     // let [order, title, type] = filename.split('.');

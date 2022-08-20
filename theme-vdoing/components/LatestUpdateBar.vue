@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "LastestUpdateBar",
+  name: "LatestUpdateBar",
   props: {
     length: {
       type: [String, Number],

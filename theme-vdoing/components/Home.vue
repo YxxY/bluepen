@@ -156,7 +156,7 @@
           :tagsData="$categoriesAndTags.tags"
           :length="30"
         />
-      	<LastestUpdateBar v-if="$themeConfig.lastestUpdate" />	
+      	<LatestUpdateBar v-if="$themeConfig.latestUpdate" />	
 	<div 
 	  class="custom-html-box card-box"
           v-if="homeSidebarB"
@@ -179,7 +179,7 @@ import Pagination from '@theme/components/Pagination'
 import BloggerBar from '@theme/components/BloggerBar'
 import CategoriesBar from '@theme/components/CategoriesBar'
 import TagsBar from '@theme/components/TagsBar'
-import LastestUpdateBar from '@theme/components/LastestUpdateBar'
+import LatestUpdateBar from '@theme/components/LatestUpdateBar'
 
 const MOBILE_DESKTOP_BREAKPOINT = 720 // refer to config.styl
 
@@ -247,7 +247,7 @@ export default {
       };
     }
   },
-  components: { NavLink, MainLayout, PostList, UpdateArticle, BloggerBar, CategoriesBar, TagsBar, Pagination,  LastestUpdateBar},
+  components: { NavLink, MainLayout, PostList, UpdateArticle, BloggerBar, CategoriesBar, TagsBar, Pagination,  LatestUpdateBar},
   created() {
     this.total = this.$sortPosts.length
   },
